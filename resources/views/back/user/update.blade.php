@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title', 'Contact List Məlumatlarını Dəyişdir')
+@section('title', 'İstifadəçi Məlumatlarını Dəyişdir')
 
 @section('content')
     <div class="container-fluid vh-100">
@@ -14,14 +14,31 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('phonebook.update', $person->id) }}" class="row">
+                    <form method="POST" action="{{ route('user.update', $user->id) }}" class="row">
                         @csrf
                         @method('PUT')
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="role">Rol</label>
+                                <select class="form-control" id="role" name="role">
+                                    @foreach ($roles as $role)
+                                        @if ($role->name != 'Standart-User')
+                                            <option value="{{ $role->name }}"
+                                                {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                                {{ $role->name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="full_name">Ad</label>
                                 <input type="text" class="form-control" id="full_name" name="name"
-                                    value="{{ $person->name }}">
+                                    value="{{ $user->name }}">
                             </div>
                         </div>
 
@@ -29,7 +46,7 @@
                             <div class="form-group">
                                 <label for="full_name">Soyad</label>
                                 <input type="text" class="form-control" id="full_name" name="surname"
-                                    value="{{ $person->surname }}">
+                                    value="{{ $user->surname }}">
                             </div>
                         </div>
 
@@ -37,43 +54,24 @@
                             <div class="form-group">
                                 <label for="full_name">Ata adı</label>
                                 <input type="text" class="form-control" id="full_name" name="father_name"
-                                    value="{{ $person->father_name }}">
+                                    value="{{ $user->father_name }}">
                             </div>
                         </div>
 
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="faks">Faks</label>
-                                <input type="text" class="form-control" id="faks" name="fax"
-                                    value="{{ $person->fax }}">
-                            </div>
-                        </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" name="email"
-                                    value="{{ $person->email }}">
+                                    value="{{ $user->email }}">
                             </div>
                         </div>
 
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="company_name">Müəssisənin adı</label>
-                                <input type="text" class="form-control" id="company_name" name="company_id"
-                                    value="{{ $person->company_id }}">
-                            </div>
-                        </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label for="phone_numbers">Nömrələr</label>
-                                <div id="phone_numbers_container">
-                                    @foreach ($phoneNumbers as $phoneNumber)
-                                        <input type="text" class="form-control" name="phone_numbers[]"
-                                            value="{{ $phoneNumber->phone }}">
-                                    @endforeach
-                                </div>
+                                <label for="faks">Password</label>
+                                <input type="password" class="form-control" name="password" value="{{ $user->email }}">
                             </div>
                         </div>
 

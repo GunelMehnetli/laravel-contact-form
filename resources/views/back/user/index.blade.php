@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title', 'Contact List')
+@section('title', 'İstifadəçilərin siyahısı')
 @section('content')
 
     <div class="container-fluid vh-100">
@@ -7,13 +7,17 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2><b>@yield('title', 'Contact List')</b></h2>
+                        <h2><b>@yield('title', 'İstifadəçilərin siyahısı')</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{ route('phonebook.create') }}" class="btn btn-primary"><i
-                                class="fa-solid fa-circle-plus"></i><span>Əlavə et</span></a>
-                        <a href="{{ route('phonebook.trashed') }}" class="btn btn-warning"><i class="fa fa-trash"></i>Silmiş
-                            Contact Listlər</a>
+                        <a href="{{ route('user.create') }}" class="btn btn-primary"><i
+                                class="fa-solid fa-circle-plus"></i><span>Əlavə
+                                et</span></a>
+                        <a href="{{ route('user.trashed') }}" class="btn btn-warning "><i class="fa fa-trash"></i>Silmiş
+                            İstifadəçilər</a>
+
+                        <a href="" class="btn btn-primary"><i class="fas fa-key"></i><span>Role</span></a>
+                        <a href="" class="btn btn-warning "><i class="fas fa-check-circle"></i>Permission</a>
                     </div>
                 </div>
             </div>
@@ -31,30 +35,26 @@
                                 <th class="text-center">Ad</th>
                                 <th class="text-center">Soyad</th>
                                 <th class="text-center">Ata adı</th>
-                                <th class="text-center">Fax</th>
                                 <th class="text-center">Email</th>
-                                <th class="text-center">Müəssisənin adı</th>
-                                <th class="text-center">Telefon</th>
+                                <th class="text-center">Role</th>
                                 <th class="text-center">Əməliyyatlar</th>
                         </thead>
                         <tbody>
-                            @foreach ($persons as $person)
+                            @foreach ($users as $user)
                                 <tr>
-                                    <td>{{ $person->name }}</td>
-                                    <td>{{ $person->surname }}</td>
-                                    <td>{{ $person->father_name }}</td>
-                                    <td>{{ $person->fax }}</td>
-                                    <td>{{ $person->email }}</td>
-                                    <td>{{ $person->company->company_name }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->surname }}</td>
+                                    <td>{{ $user->father_name }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>
-                                        @foreach ($person->phones as $phone)
-                                            {{ $phone->phone }}<br>
+                                        @foreach ($user->roles as $role)
+                                            {{ $role->name }}
                                         @endforeach
                                     </td>
                                     <td align="center">
-                                        <a href="{{ route('phonebook.edit', $person->id) }}" class="btn "><em
+                                        <a href="{{ route('user.edit', $user->id) }}" class="btn "><em
                                                 class="fas fa-edit fa-lg text-primary"></em></a>
-                                        <a href="{{ route('phonebook.delete', $person->id) }}"><em
+                                        <a href="{{ route('user.delete', $user->id) }}"><em
                                                 class="fas fa-trash fa-lg text-danger"></em></a>
                                     </td>
                                 </tr>
